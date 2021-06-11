@@ -3,7 +3,9 @@ import Base from './components/Base';
 
 function Gestor() {
   return (
-        <Base/>
+    <>
+      <Base/>
+    </>
   );
 }
 

@@ -1,5 +1,4 @@
-import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
+import React, { useState,useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -11,6 +10,7 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { LoginApi } from "./api/LoginApi";
 
 function Copyright() {
   return (
@@ -24,6 +24,7 @@ function Copyright() {
     </Typography>
   );
 }
+
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -46,7 +47,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Login() {
-  const classes = useStyles();
+
+const[email, setEmail] = useState('')
+const[password, setPassword] = useState('')
+  
+const entrar = async ()=>{  
+  const selected = await LoginApi.getLogin(email,password)
+  localStorage.setItem('user',JSON.stringify(selected))
+  if(selected != null)
+    window.location.href = "/admin";
+
+}
+const classes = useStyles();
 
   return (
     <Container component="main" maxWidth="xs">
@@ -55,10 +67,11 @@ export default function Login() {
         <Typography component="h1" variant="h5">
             Entrar
         </Typography>
-        <form className={classes.form} noValidate>
+        <div action="/admin">
           <TextField
             variant="outlined"
             margin="normal"
+            onChange={event => setEmail(event.target.value)}
             required
             fullWidth
             id="email"
@@ -72,6 +85,7 @@ export default function Login() {
             margin="normal"
             required
             fullWidth
+            onChange={event => setPassword(event.target.value)}
             name="password"
             label="Senha"
             type="password"
@@ -87,7 +101,8 @@ export default function Login() {
             fullWidth
             variant="contained"
             color="primary"
-            className={classes.submit}
+            className={classes.submit}            
+            onClick={entrar}
           >
             Entrar
           </Button>
@@ -100,7 +115,7 @@ export default function Login() {
             <Grid item>
             </Grid>
           </Grid>
-        </form>
+        </div>
       </div>
       <Box mt={8}>
         <Copyright />

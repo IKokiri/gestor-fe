@@ -39,6 +39,7 @@ import {
   Route,
   Link,
 } from "react-router-dom";
+import Fab from '@material-ui/core/Fab';
 
 const drawerWidth = 240;
 
@@ -109,6 +110,7 @@ export default function Base() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -116,7 +118,7 @@ export default function Base() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
+  let userData = JSON.parse(localStorage.getItem('user'))
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -131,15 +133,21 @@ export default function Base() {
             color="inherit"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
-            edge="start"            
+            edge="start"
             className={clsx(classes.menuButton, open && classes.hide)}
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
-            Kuttner No-Bake Solutions
-          </Typography>
+          <Fab size="small" color="secondary" aria-label="add">
+            {
+              userData.email.replace('.', '').toUpperCase().substr(0, 2)
+            }
+          </Fab>
+
         </Toolbar>
+
+
+
       </AppBar>
       <Drawer
         variant="permanent"
@@ -154,94 +162,94 @@ export default function Base() {
           }),
         }}
       >
-          
+
         <div className={classes.toolbar}>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </div>
-        
+
         <Divider />
-        <List>          
-            <ListItem component={Link} to="/usuario" button key='usuario'>
-              <ListItemIcon><UserIcon /></ListItemIcon>
-              <ListItemText primary='Usuários' />
-            </ListItem>               
-            <ListItem component={Link} to="/pessoa" button key='pessoa'>
-              <ListItemIcon><PersonIcon /></ListItemIcon>
-              <ListItemText primary='Pessoa' />
-            </ListItem>
-            <ListItem component={Link} to="/funcionario" button key='funcionario'>
-              <ListItemIcon><FuncIcon /></ListItemIcon>
-              <ListItemText primary='Funcionário' />
-            </ListItem>   
-            <ListItem component={Link} to="/departamento" button key='departamento'>
-              <ListItemIcon><DepartmentIcon /></ListItemIcon>
-              <ListItemText primary='Departamento' />
-            </ListItem>  
-            <ListItem component={Link} to="/funcao" button key='funcao'>
-              <ListItemIcon><FuncaoIcon /></ListItemIcon>
-              <ListItemText primary='Funcao' />
-            </ListItem>  
-            <ListItem component={Link} to="/contrato" button key='contrato'>
-              <ListItemIcon><ContractIcon /></ListItemIcon>
-              <ListItemText primary='Contrato' />
-            </ListItem>  
-            <ListItem component={Link} to="/proposta" button key='proposta'>
-              <ListItemIcon><ProposalIcon /></ListItemIcon>
-              <ListItemText primary='Proposta' />
-            </ListItem>  
-            <ListItem component={Link} to="/horadepartamento" button key='horadepartamento'>
-              <ListItemIcon><Horas /></ListItemIcon>
-              <ListItemText primary='Hora Departamento' />
-            </ListItem>  
-            <ListItem component={Link} to="/horacontrato" button key='horacontrato'>
-              <ListItemIcon><Horas /></ListItemIcon>
-              <ListItemText primary='Hora Contrato' />
-            </ListItem>  
-            <ListItem component={Link} to="/horaproposta" button key='horaproposta'>
-              <ListItemIcon><Horas /></ListItemIcon>
-              <ListItemText primary='Hora Propsota' />
-            </ListItem>  
+        <List>
+          <ListItem component={Link} to="/admin/usuario" button key='usuario'>
+            <ListItemIcon><UserIcon /></ListItemIcon>
+            <ListItemText primary='Usuários' />
+          </ListItem>
+          <ListItem component={Link} to="/admin/pessoa" button key='pessoa'>
+            <ListItemIcon><PersonIcon /></ListItemIcon>
+            <ListItemText primary='Pessoa' />
+          </ListItem>
+          <ListItem component={Link} to="/admin/funcionario" button key='funcionario'>
+            <ListItemIcon><FuncIcon /></ListItemIcon>
+            <ListItemText primary='Funcionário' />
+          </ListItem>
+          <ListItem component={Link} to="/admin/departamento" button key='departamento'>
+            <ListItemIcon><DepartmentIcon /></ListItemIcon>
+            <ListItemText primary='Departamento' />
+          </ListItem>
+          <ListItem component={Link} to="/admin/funcao" button key='funcao'>
+            <ListItemIcon><FuncaoIcon /></ListItemIcon>
+            <ListItemText primary='Funcao' />
+          </ListItem>
+          <ListItem component={Link} to="/admin/contrato" button key='contrato'>
+            <ListItemIcon><ContractIcon /></ListItemIcon>
+            <ListItemText primary='Contrato' />
+          </ListItem>
+          <ListItem component={Link} to="/admin/proposta" button key='proposta'>
+            <ListItemIcon><ProposalIcon /></ListItemIcon>
+            <ListItemText primary='Proposta' />
+          </ListItem>
+          <ListItem component={Link} to="/admin/horadepartamento" button key='horadepartamento'>
+            <ListItemIcon><Horas /></ListItemIcon>
+            <ListItemText primary='Hora Departamento' />
+          </ListItem>
+          <ListItem component={Link} to="/admin/horacontrato" button key='horacontrato'>
+            <ListItemIcon><Horas /></ListItemIcon>
+            <ListItemText primary='Hora Contrato' />
+          </ListItem>
+          <ListItem component={Link} to="/admin/horaproposta" button key='horaproposta'>
+            <ListItemIcon><Horas /></ListItemIcon>
+            <ListItemText primary='Hora Propsota' />
+          </ListItem>
         </List>
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <Container>        
-        <Switch>
-          <Route path="/usuario">
-            <User />
-          </Route>
-          <Route path="/funcionario">
-            <Funcionario />
-          </Route>
-          <Route path="/pessoa">
-            <Pessoa />
-          </Route>
-          <Route path="/departamento">
-            <Departamento />
-          </Route>
-          <Route path="/funcao">
-            <Funcao />
-          </Route>
-          <Route path="/contrato">
-            <Contrato />
-          </Route>
-          <Route path="/proposta">
-            <Proposta />
-          </Route>
-          <Route path="/horadepartamento">
-            <HoraDepartamento />
-          </Route>
-          <Route path="/horacontrato">
-            <HoraContrato />
-          </Route>
-          <Route path="/horaproposta">
-            <HoraProposta />
-          </Route>
-        </Switch>
-      </Container>
-      </main>    
+        <Container>
+          <Switch>
+            <Route path="/admin/usuario">
+              <User />
+            </Route>
+            <Route path="/admin/funcionario">
+              <Funcionario />
+            </Route>
+            <Route path="/admin/pessoa">
+              <Pessoa />
+            </Route>
+            <Route path="/admin/departamento">
+              <Departamento />
+            </Route>
+            <Route path="/admin/funcao">
+              <Funcao />
+            </Route>
+            <Route path="/admin/contrato">
+              <Contrato />
+            </Route>
+            <Route path="/admin/proposta">
+              <Proposta />
+            </Route>
+            <Route path="/admin/horadepartamento">
+              <HoraDepartamento />
+            </Route>
+            <Route path="/admin/horacontrato">
+              <HoraContrato />
+            </Route>
+            <Route path="/admin/horaproposta">
+              <HoraProposta />
+            </Route>
+          </Switch>
+        </Container>
+      </main>
     </div>
   );
 }
