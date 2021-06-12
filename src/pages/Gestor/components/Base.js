@@ -6,7 +6,6 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -34,6 +33,7 @@ import FuncaoIcon from '@material-ui/icons/Build';
 import ContractIcon from '@material-ui/icons/Receipt';
 import ProposalIcon from '@material-ui/icons/RestorePage';
 import Horas from '@material-ui/icons/AvTimer';
+import SairIcon from '@material-ui/icons/PowerSettingsNew';
 import {
   Switch,
   Route,
@@ -210,6 +210,13 @@ export default function Base() {
           <ListItem component={Link} to="/admin/horaproposta" button key='horaproposta'>
             <ListItemIcon><Horas /></ListItemIcon>
             <ListItemText primary='Hora Propsota' />
+          </ListItem>
+
+          <Divider />
+          
+          <ListItem component={Link} to="/" button key='sair'>
+            <ListItemIcon><SairIcon style={{fill: "red"}} /></ListItemIcon>
+            <ListItemText primary='Sair' />
           </ListItem>
         </List>
       </Drawer>
